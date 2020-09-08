@@ -5,18 +5,21 @@ This plugin is the same as [Vector Scoring Plugin for Elasticsearch](https://git
 
 ## Plugin installation
 
-The plugin was developed and tested on Solr `6.6.0`.
-
-1. Copy VectorPlugin.jar to {solr.install.dir}/dist/plugins/
-2. Add the library to solrconfig.xml file:
+The plugin was developed and tested on Solr `7.7.3`.
+1. Build the jar using maven
+```
+mvn -Prelease clean package
+```
+2. Copy Vector-Plugin-1.0-SNAPSHOT.jar to {solr.install.dir}/dist/plugins/
+3. Add the library to solrconfig.xml file:
 ```
 <lib dir="${solr.install.dir:../../../..}/dist/plugins/" regex=".*\.jar" />
 ```
-3. Add the plugin Query parser to solrconfig.xml:
+4. Add the plugin Query parser to solrconfig.xml:
 ```
 <queryParser name="vp" class="com.github.saaay71.solr.VectorQParserPlugin" />
 ```
-4. Add the fieldType `VectorField` to schema file(managed-schema):
+5. Add the fieldType `VectorField` to schema file(managed-schema):
 ```
   <fieldType name="VectorField" class="solr.TextField" indexed="true" termOffsets="true" stored="true" termPayloads="true" termPositions="true" termVectors="true" storeOffsetsWithPositions="true">
     <analyzer>
@@ -25,11 +28,11 @@ The plugin was developed and tested on Solr `6.6.0`.
     </analyzer>
   </fieldType>
 ```
-5. Add the field `vector` to schema file:
+6. Add the field `vector` to schema file:
 ```
 <field name="vector" type="VectorField" indexed="true" termOffsets="true" stored="true" termPositions="true" termVectors="true" multiValued="true"/>
 ```
-6. Start Solr!
+7. Start Solr!
 
 ## Example
 
